@@ -1,0 +1,9 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-elurah
+    environment:
+      MYSQL_DATABASE: spring_elurah
+      MYSQL_ROOT_PASSWORD: P@ssW0rd32!
+    ports:
+      - '3306:3306'
