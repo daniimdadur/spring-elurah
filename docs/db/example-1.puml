@@ -1,0 +1,5 @@
+@startuml
+entity "Example" as Example {
+    * id : string <<generated>>
+}
+@enduml
