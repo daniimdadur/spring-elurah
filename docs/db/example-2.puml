@@ -1,0 +1,131 @@
+@startuml
+title Neighborhood Security Fee Management System ERD
+
+' ========================
+' REGION MASTER
+' ========================
+
+entity RW {
+  +id : UUID <<PK>>
+  --
+  name : String
+  address : String
+}
+
+entity RT {
+  +id : UUID <<PK>>
+  --
+  number : String
+  rw_id : UUID <<FK>>
+}
+
+RW ||--o{ RT : has
+
+' ========================
+' HOUSEHOLD
+' ========================
+
+entity Household {
+  +id : UUID <<PK>>
+  --
+  family_card_number : String
+  head_of_family_name : String
+  address : String
+  house_number : String
+  is_active : Boolean
+  rt_id : UUID <<FK>>
+}
+
+RT ||--o{ Household : has
+
+' ========================
+' USER & ROLE
+' ========================
+
+entity Role {
+  +id : UUID <<PK>>
+  --
+  role_name : String
+}
+
+entity User {
+  +id : UUID <<PK>>
+  --
+  username : String
+  password : String
+  household_id : UUID <<FK>>
+  role_id : UUID <<FK>>
+}
+
+Role ||--o{ User : assigned_to
+Household ||--o| User : optional_login
+
+' ========================
+' CONTRIBUTION
+' ========================
+
+entity Contribution {
+  +id : UUID <<PK>>
+  --
+  contribution_name : String
+  contribution_type : String
+  amount : Decimal
+  start_date : Date
+  due_date : Date
+  penalty_percentage : Decimal
+  is_active : Boolean
+  rt_id : UUID <<FK>>
+}
+
+RT ||--o{ Contribution : creates
+
+' ========================
+' BILL (GENERATED PER HOUSEHOLD)
+' ========================
+
+entity Bill {
+  +id : UUID <<PK>>
+  --
+  household_id : UUID <<FK>>
+  contribution_id : UUID <<FK>>
+  total_amount : Decimal
+  total_penalty : Decimal
+  status : String
+}
+
+Household ||--o{ Bill
+Contribution ||--o{ Bill
+
+' ========================
+' PAYMENT
+' ========================
+
+entity Payment {
+  +id : UUID <<PK>>
+  --
+  bill_id : UUID <<FK>>
+  payment_date : DateTime
+  paid_amount : Decimal
+  payment_method : String
+  notes : String
+}
+
+Bill ||--o{ Payment
+
+' ========================
+' CASH TRANSACTION
+' ========================
+
+entity CashTransaction {
+  +id : UUID <<PK>>
+  --
+  transaction_type : String
+  amount : Decimal
+  description : String
+  transaction_date : DateTime
+  rt_id : UUID <<FK>>
+}
+
+RT ||--o{ CashTransaction
+
+@enduml
