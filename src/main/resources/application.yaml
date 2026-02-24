@@ -8,6 +8,8 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
+        jdbc:
+          time_zone: Asia/Jakarta
         dialect: org.hibernate.dialect.MySQLDialect
 server:
   port: 8081
