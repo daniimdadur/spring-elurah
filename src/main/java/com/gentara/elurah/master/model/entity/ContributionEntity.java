@@ -2,13 +2,11 @@ package com.gentara.elurah.master.model.entity;
 
 import com.gentara.elurah.base.BaseAuditableSoftDelete;
 import com.gentara.elurah.enums.ContributionType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +20,9 @@ public class ContributionEntity extends BaseAuditableSoftDelete {
     @Id
     @Column
     private String id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private RtEntity rt;
 
     @Column(name = "contribution_name")
     private String contributionName;
@@ -43,4 +44,7 @@ public class ContributionEntity extends BaseAuditableSoftDelete {
 
     @Column(name = "is_active")
     private boolean isActive;
+
+    @OneToMany(mappedBy = "contribution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BillEntity> billEntities;
 }

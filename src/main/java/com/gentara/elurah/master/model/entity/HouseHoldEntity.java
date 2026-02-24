@@ -1,10 +1,10 @@
 package com.gentara.elurah.master.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.gentara.elurah.base.BaseAuditableSoftDelete;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,10 +13,13 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Table(name = "t_house_hold")
-public class HouseHold {
+public class HouseHoldEntity extends BaseAuditableSoftDelete {
 
     @Id
     private String id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private RtEntity rt;
 
     @Column(name = "family_card_number")
     private String familyCardNumber;
@@ -32,4 +35,7 @@ public class HouseHold {
 
     @Column(name = "is_active")
     private Boolean isActive;
+
+    @OneToMany(mappedBy = "houseHold", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BillEntity> billEntities;
 }

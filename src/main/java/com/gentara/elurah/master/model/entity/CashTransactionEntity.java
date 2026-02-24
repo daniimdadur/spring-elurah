@@ -1,9 +1,8 @@
 package com.gentara.elurah.master.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.gentara.elurah.base.BaseAuditableSoftDelete;
+import com.gentara.elurah.enums.TransactionType;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,12 +14,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Table(name = "t_cash_transaction")
-public class CashTransaction {
+public class CashTransactionEntity extends BaseAuditableSoftDelete {
+
     @Id
     private String id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private RtEntity rt;
+
     @Column(name = "transaction_type")
-    private String transactionType;
+    private TransactionType transactionType;
 
     @Column(name = "amount")
     private Integer amount;

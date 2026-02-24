@@ -1,9 +1,7 @@
 package com.gentara.elurah.master.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.gentara.elurah.base.BaseAuditableSoftDelete;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,10 +13,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Table(name = "t_payment")
-public class Payment {
+public class PaymentEntity extends BaseAuditableSoftDelete {
 
     @Id
     private String id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private BillEntity bill;
 
     @Column(name = "payment_date")
     private LocalDateTime paymentDate;
