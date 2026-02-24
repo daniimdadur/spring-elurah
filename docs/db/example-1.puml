@@ -1,5 +1,4 @@
 @startuml
-@startuml
 title ERD Sistem Manajemen Iuran Pos Kamling
 
 ' ========================
@@ -129,5 +128,4 @@ entity Kas {
 
 RT ||--o{ Kas
 
-@enduml
 @enduml
