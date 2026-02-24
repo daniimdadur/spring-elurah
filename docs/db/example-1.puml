@@ -1,5 +1,133 @@
 @startuml
-entity "Example" as Example {
-    * id : string <<generated>>
+@startuml
+title ERD Sistem Manajemen Iuran Pos Kamling
+
+' ========================
+' MASTER WILAYAH
+' ========================
+
+entity RW {
+  +id : UUID <<PK>>
+  --
+  nama : String
+  alamat : String
 }
+
+entity RT {
+  +id : UUID <<PK>>
+  --
+  nomor : String
+  rw_id : UUID <<FK>>
+}
+
+RW ||--o{ RT : memiliki
+
+' ========================
+' KEPALA KELUARGA
+' ========================
+
+entity KepalaKeluarga {
+  +id : UUID <<PK>>
+  --
+  no_kk : String
+  nama_kepala : String
+  alamat : String
+  no_rumah : String
+  status_aktif : Boolean
+  rt_id : UUID <<FK>>
+}
+
+RT ||--o{ KepalaKeluarga : memiliki
+
+' ========================
+' USER & ROLE
+' ========================
+
+entity Role {
+  +id : UUID <<PK>>
+  --
+  nama_role : String
+}
+
+entity User {
+  +id : UUID <<PK>>
+  --
+  username : String
+  password : String
+  kepala_keluarga_id : UUID <<FK>>
+  role_id : UUID <<FK>>
+}
+
+Role ||--o{ User : memiliki
+KepalaKeluarga ||--o| User : opsional_login
+
+' ========================
+' IURAN
+' ========================
+
+entity Iuran {
+  +id : UUID <<PK>>
+  --
+  nama_iuran : String
+  tipe_iuran : String
+  nominal : Decimal
+  tanggal_mulai : Date
+  tanggal_jatuh_tempo : Date
+  denda_persen : Decimal
+  status_aktif : Boolean
+  rt_id : UUID <<FK>>
+}
+
+RT ||--o{ Iuran : membuat
+
+' ========================
+' TAGIHAN (GENERATED PER KK)
+' ========================
+
+entity Tagihan {
+  +id : UUID <<PK>>
+  --
+  kepala_keluarga_id : UUID <<FK>>
+  iuran_id : UUID <<FK>>
+  total_tagihan : Decimal
+  total_denda : Decimal
+  status : String
+}
+
+KepalaKeluarga ||--o{ Tagihan
+Iuran ||--o{ Tagihan
+
+' ========================
+' PEMBAYARAN
+' ========================
+
+entity Pembayaran {
+  +id : UUID <<PK>>
+  --
+  tagihan_id : UUID <<FK>>
+  tanggal_bayar : DateTime
+  jumlah_bayar : Decimal
+  metode_pembayaran : String
+  keterangan : String
+}
+
+Tagihan ||--o{ Pembayaran
+
+' ========================
+' KAS
+' ========================
+
+entity Kas {
+  +id : UUID <<PK>>
+  --
+  tipe_transaksi : String
+  nominal : Decimal
+  keterangan : String
+  tanggal : DateTime
+  rt_id : UUID <<FK>>
+}
+
+RT ||--o{ Kas
+
+@enduml
 @enduml
