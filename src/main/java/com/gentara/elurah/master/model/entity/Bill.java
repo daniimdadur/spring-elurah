@@ -26,5 +26,5 @@ public class Bill {
     @Column(name = "status")
     private String status;
 
-    //test
+    //testt
 }
