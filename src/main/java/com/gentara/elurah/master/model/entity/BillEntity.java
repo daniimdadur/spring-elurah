@@ -3,6 +3,7 @@ package com.gentara.elurah.master.model.entity;
 import com.gentara.elurah.base.BaseAuditableSoftDelete;
 import com.gentara.elurah.enums.PaymentStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 public class BillEntity extends BaseAuditableSoftDelete {
 
     @Id
+    @Column
     private String id;
 
     @ManyToOne(fetch = FetchType.EAGER)

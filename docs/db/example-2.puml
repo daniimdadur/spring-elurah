@@ -15,7 +15,7 @@ entity RW {
 entity RT {
   +id : UUID <<PK>>
   --
-  number : String
+  name : String
   rw_id : UUID <<FK>>
 }
 
