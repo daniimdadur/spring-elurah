@@ -21,8 +21,8 @@ public class RtEntity extends BaseAuditableSoftDelete {
     @ManyToOne(fetch = FetchType.EAGER)
     private RwEntity rw;
 
-    @Column(name = "number")
-    private String number;
+    @Column(name = "name")
+    private String name;
 
     @OneToMany(mappedBy = "rt", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CashTransactionEntity> cashTransactionEntities;
