@@ -4,7 +4,7 @@ import com.gentara.elurah.base.BaseController;
 import com.gentara.elurah.base.Response;
 import com.gentara.elurah.master.model.request.RwReq;
 import com.gentara.elurah.master.model.response.RwRes;
-import com.gentara.elurah.master.service.RwService;
+import com.gentara.elurah.master.service.region.RwService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;

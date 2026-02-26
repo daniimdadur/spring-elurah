@@ -1,4 +1,4 @@
-package com.gentara.elurah.master.service;
+package com.gentara.elurah.master.service.region;
 
 import com.gentara.elurah.master.model.request.RwReq;
 import com.gentara.elurah.master.model.response.RwRes;

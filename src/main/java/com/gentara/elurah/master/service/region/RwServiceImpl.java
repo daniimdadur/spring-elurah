@@ -1,11 +1,10 @@
-package com.gentara.elurah.master.service.impl;
+package com.gentara.elurah.master.service.region;
 
 import com.gentara.elurah.exception.NotFoundException;
 import com.gentara.elurah.master.model.entity.RwEntity;
 import com.gentara.elurah.master.model.request.RwReq;
 import com.gentara.elurah.master.model.response.RwRes;
 import com.gentara.elurah.master.repository.RwRepository;
-import com.gentara.elurah.master.service.RwService;
 import com.gentara.elurah.util.CommonUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
