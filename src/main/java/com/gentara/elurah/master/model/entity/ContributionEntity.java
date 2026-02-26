@@ -28,6 +28,7 @@ public class ContributionEntity extends BaseAuditableSoftDelete {
     private String contributionName;
 
     @Column(name = "contribution_type")
+    @Enumerated(EnumType.STRING)
     private ContributionType contributionType;
 
     @Column(name = "amount")
