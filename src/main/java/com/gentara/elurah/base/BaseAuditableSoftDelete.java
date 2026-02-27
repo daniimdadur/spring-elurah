@@ -1,12 +1,9 @@
 package com.gentara.elurah.base;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PreUpdate;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.SoftDelete;
+import org.hibernate.annotations.SQLRestriction;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -18,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@SoftDelete(columnName = "deleted_at")
+@SQLRestriction("deleted_at IS NULL")
 public abstract class BaseAuditableSoftDelete {
 
     @CreatedDate
@@ -38,6 +35,9 @@ public abstract class BaseAuditableSoftDelete {
 
     @Column(name = "deleted_by")
     private String deletedBy;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
     @PreUpdate
     private void preUpdate() {

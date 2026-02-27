@@ -2,6 +2,8 @@ package com.gentara.elurah.master.model.response;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,4 +14,5 @@ public class RtRes {
     private String rwId;
     private String rwName;
     private String name;
+    private List<ContributionRes> contributions;
 }

@@ -9,11 +9,13 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/api/rt")
+@Validated
 public class RtControllerApi extends BaseController<RtRes> {
 
     private final RtService rtService;
@@ -28,7 +30,7 @@ public class RtControllerApi extends BaseController<RtRes> {
         return super.getResponse(rtService.getById(id));
     }
 
-    @GetMapping()
+    @PostMapping
     public ResponseEntity<Response> post(@RequestBody @Valid RtReq request){
         return super.getResponse(rtService.create(request));
     }

@@ -7,6 +7,7 @@ import com.gentara.elurah.master.model.request.RtReq;
 import com.gentara.elurah.master.model.response.RtRes;
 import com.gentara.elurah.master.repository.RtRepository;
 import com.gentara.elurah.master.repository.RwRepository;
+import com.gentara.elurah.master.service.contribution.ContributionService;
 import com.gentara.elurah.util.CommonUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class RtServiceImpl implements RtService {
 
     private final RtRepository rtRepository;
     private final RwRepository rwRepository;
+    private final ContributionService contributionService;
 
     @Override
     public List<RtRes> getAll() {
@@ -32,7 +34,7 @@ public class RtServiceImpl implements RtService {
 
     @Override
     public Optional<RtRes> getById(String id) {
-        return Optional.of(this.entityToRes(this.getEntity(id)));
+        return Optional.of(this.entityToResList(this.getEntity(id)));
     }
 
     @Override
@@ -75,6 +77,16 @@ public class RtServiceImpl implements RtService {
                 .rwId(entity.getRw().getId())
                 .rwName(entity.getRw().getName())
                 .name(entity.getName())
+                .build();
+    }
+
+    private RtRes entityToResList(RtEntity entity) {
+        return RtRes.builder()
+                .id(entity.getId())
+                .rwId(entity.getRw().getId())
+                .rwName(entity.getRw().getName())
+                .name(entity.getName())
+                .contributions(contributionService.getAllByRt(entity.getId()))
                 .build();
     }
 
